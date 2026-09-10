@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return;
+        
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            String s = sc.next();
+            int len = s.length();
+            int[] freq = new int[26];
+
+            // Count frequencies in the first half
+            for (int i = 0; i < len / 2; i++) {
+                freq[s.charAt(i) - 'a']++;
+            }
+
+            // Subtract frequencies from the second half (skipping the middle character if length is odd)
+            int startSecondHalf = (len % 2 == 0) ? len / 2 : len / 2 + 1;
+            for (int i = startSecondHalf; i < len; i++) {
+                freq[s.charAt(i) - 'a']--;
+            }
+
+            // Check if all frequencies cancel out
+            boolean isLapindrome = true;
+            for (int f : freq) {
+                if (f != 0) {
+                    isLapindrome = false;
+                    break;
+                }
+            }
+
+            if (isLapindrome) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
+        }
+        sc.close();
+    }
+}
